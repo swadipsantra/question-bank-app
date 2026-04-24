@@ -18,7 +18,7 @@ def generate_questions(topic):
 
     try:
         response = co.generate(
-            model="command-light",   # lightweight model
+            model="command-light",
             prompt=prompt,
             max_tokens=400,
             temperature=0.7
@@ -27,3 +27,18 @@ def generate_questions(topic):
 
     except Exception as e:
         return f"Error: {str(e)}"
+
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    questions = ""
+
+    if request.method == "POST":
+        topic = request.form["topic"]
+        questions = generate_questions(topic)
+
+    return render_template("index.html", questions=questions)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
