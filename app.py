@@ -2,6 +2,8 @@ from flask import Flask, request, render_template
 import cohere
 import os
 
+print("COHERE KEY:", os.getenv("COHERE_API_KEY"))
+
 app = Flask(__name__)
 
 co = cohere.Client(os.getenv("COHERE_API_KEY"))
