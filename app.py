@@ -4,10 +4,11 @@ import os
 
 app = Flask(__name__)
 
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
-headers = {"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"}
+API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-small"
 
-
+headers = {
+    "Authorization": f"Bearer {os.getenv('HF_TOKEN')}"
+}
 def generate_questions(topic):
     prompt = f"""
     Generate a question bank on the topic: {topic}
