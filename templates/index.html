@@ -2,18 +2,66 @@
 <html>
 <head>
     <title>Question Bank Generator</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(to right, #ffe6f0, #f9f0ff);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #8e44ad;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #732d91;
+        }
+
+        .output {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Topic-Based Question Generator</h2>
+<h1>🌸 Topic-Based Question Generator</h1>
 
 <form method="POST">
     <input type="text" name="topic" placeholder="Enter topic" required>
     <button type="submit">Generate</button>
 </form>
 
-<h3>Output:</h3>
-<pre>{{ questions }}</pre>
+<div class="output">
+    {{ questions }}
+</div>
 
 </body>
 </html>
