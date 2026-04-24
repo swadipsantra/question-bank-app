@@ -1,35 +1,59 @@
 from flask import Flask, request, render_template
-import cohere
-import os
-
-print("COHERE KEY:", os.getenv("COHERE_API_KEY"))
 
 app = Flask(__name__)
 
-co = cohere.Client(os.getenv("COHERE_API_KEY"))
-
 def generate_questions(topic):
-    prompt = f"""
-    Create a question bank for: {topic}
+    return f"""
+📘 Topic: {topic}
 
-    Include:
-    - 5 MCQs with answers
-    - 3 short questions with answers
-    - 2 long questions with answers
-    """
+SECTION A: Multiple Choice Questions
+1. What is {topic}?
+   a) A concept
+   b) A tool
+   c) A process
+   d) A system
+   Answer: a
 
-    try:
-        response = co.generate(
-            model="command-light",
-            prompt=prompt,
-            max_tokens=400,
-            temperature=0.7
-        )
-        return response.generations[0].text.strip()
+2. Purpose of {topic}?
+   a) Analysis
+   b) Storage
+   c) Display
+   d) None
+   Answer: a
 
-    except Exception as e:
-        return f"Error: {str(e)}"
+3. {topic} is used in:
+   a) Data Science
+   b) Cooking
+   c) Gaming
+   d) Driving
+   Answer: a
 
+4. One advantage of {topic}:
+   a) Better decision making
+   b) Slower performance
+   c) Less usage
+   d) None
+   Answer: a
+
+5. {topic} helps in:
+   a) Pattern recognition
+   b) Sleeping
+   c) Driving
+   d) Gaming
+   Answer: a
+
+
+SECTION B: Short Answer Questions
+1. Define {topic}.
+2. Explain the importance of {topic}.
+3. List applications of {topic}.
+
+
+SECTION C: Long Answer Questions
+1. Explain {topic} in detail with examples.
+2. Discuss advantages and disadvantages of {topic}.
+"""
+    
 
 @app.route("/", methods=["GET", "POST"])
 def home():
