@@ -1,4 +1,7 @@
+from flask import Flask, request, render_template
 import random
+
+app = Flask(__name__)
 
 def generate_questions(topic):
     mcq_templates = [
@@ -48,3 +51,18 @@ def generate_questions(topic):
         output += f"{i}. {q}\n"
 
     return output
+
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    questions = ""
+
+    if request.method == "POST":
+        topic = request.form["topic"]
+        questions = generate_questions(topic)
+
+    return render_template("index.html", questions=questions)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
