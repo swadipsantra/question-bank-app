@@ -1,9 +1,34 @@
 from flask import Flask, request, render_template
-from transformers import pipeline
+import random
 
 app = Flask(__name__)
 
-generator = pipeline("text-generation", model="gpt2")
+def generate_questions(topic):
+    return f"""
+    Topic: {topic}
+
+    Multiple Choice Questions:
+    1. What is {topic}?
+       a) Option A
+       b) Option B
+       c) Option C
+       d) Option D
+       Answer: a
+
+    2. Basic concept of {topic}?
+       a) A
+       b) B
+       c) C
+       d) D
+       Answer: b
+
+    Short Answer:
+    1. Explain {topic}
+    2. Importance of {topic}
+
+    Long Answer:
+    1. Describe {topic} in detail
+    """
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -11,23 +36,9 @@ def home():
 
     if request.method == "POST":
         topic = request.form["topic"]
-
-        prompt = f"""
-        Create a structured question bank on the topic: {topic}
-
-        1. 5 Multiple Choice Questions with 4 options and correct answer
-        2. 3 Short Answer Questions
-        3. 2 Long Answer Questions
-
-        Format clearly.
-        """
-
-        result = generator(prompt, max_length=300, num_return_sequences=1)
-        questions = result[0]['generated_text']
+        questions = generate_questions(topic)
 
     return render_template("index.html", questions=questions)
 
-if __name__ == "__main__":
-    app.run(debug=True)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
